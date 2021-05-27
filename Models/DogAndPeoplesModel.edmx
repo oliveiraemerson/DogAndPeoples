@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DogAndPeoplesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Caes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Raca" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Caes_Dono">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_dono" Type="int" Nullable="false" />
+          <Property Name="Id_cao" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Donos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Caes_Dono_Caes">
+          <End Role="Caes" Type="Self.Caes" Multiplicity="1" />
+          <End Role="Caes_Dono" Type="Self.Caes_Dono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caes_Dono">
+              <PropertyRef Name="Id_cao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Caes_Dono_Donos">
+          <End Role="Donos" Type="Self.Donos" Multiplicity="1" />
+          <End Role="Caes_Dono" Type="Self.Caes_Dono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caes_Dono">
+              <PropertyRef Name="Id_dono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DogAndPeoplesModelStoreContainer">
+          <EntitySet Name="Caes" EntityType="Self.Caes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caes_Dono" EntityType="Self.Caes_Dono" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donos" EntityType="Self.Donos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Caes_Dono_Caes" Association="Self.FK_Caes_Dono_Caes">
+            <End Role="Caes" EntitySet="Caes" />
+            <End Role="Caes_Dono" EntitySet="Caes_Dono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Caes_Dono_Donos" Association="Self.FK_Caes_Dono_Donos">
+            <End Role="Donos" EntitySet="Donos" />
+            <End Role="Caes_Dono" EntitySet="Caes_Dono" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DogAndPeoplesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Caes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Raca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Caes_Dono" Relationship="Self.FK_Caes_Dono_Caes" FromRole="Caes" ToRole="Caes_Dono" />
+        </EntityType>
+        <EntityType Name="Caes_Dono">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_dono" Type="Int32" Nullable="false" />
+          <Property Name="Id_cao" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Caes" Relationship="Self.FK_Caes_Dono_Caes" FromRole="Caes_Dono" ToRole="Caes" />
+          <NavigationProperty Name="Donos" Relationship="Self.FK_Caes_Dono_Donos" FromRole="Caes_Dono" ToRole="Donos" />
+        </EntityType>
+        <EntityType Name="Donos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Caes_Dono" Relationship="Self.FK_Caes_Dono_Donos" FromRole="Donos" ToRole="Caes_Dono" />
+        </EntityType>
+        <Association Name="FK_Caes_Dono_Caes">
+          <End Role="Caes" Type="Self.Caes" Multiplicity="1" />
+          <End Role="Caes_Dono" Type="Self.Caes_Dono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caes_Dono">
+              <PropertyRef Name="Id_cao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Caes_Dono_Donos">
+          <End Role="Donos" Type="Self.Donos" Multiplicity="1" />
+          <End Role="Caes_Dono" Type="Self.Caes_Dono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Caes_Dono">
+              <PropertyRef Name="Id_dono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DogAndPeoplesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Caes" EntityType="Self.Caes" />
+          <EntitySet Name="Caes_Dono" EntityType="Self.Caes_Dono" />
+          <EntitySet Name="Donos" EntityType="Self.Donos" />
+          <AssociationSet Name="FK_Caes_Dono_Caes" Association="Self.FK_Caes_Dono_Caes">
+            <End Role="Caes" EntitySet="Caes" />
+            <End Role="Caes_Dono" EntitySet="Caes_Dono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Caes_Dono_Donos" Association="Self.FK_Caes_Dono_Donos">
+            <End Role="Donos" EntitySet="Donos" />
+            <End Role="Caes_Dono" EntitySet="Caes_Dono" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DogAndPeoplesModelStoreContainer" CdmEntityContainer="DogAndPeoplesEntities">
+          <EntitySetMapping Name="Caes">
+            <EntityTypeMapping TypeName="DogAndPeoplesModel.Caes">
+              <MappingFragment StoreEntitySet="Caes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Raca" ColumnName="Raca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caes_Dono">
+            <EntityTypeMapping TypeName="DogAndPeoplesModel.Caes_Dono">
+              <MappingFragment StoreEntitySet="Caes_Dono">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_dono" ColumnName="Id_dono" />
+                <ScalarProperty Name="Id_cao" ColumnName="Id_cao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donos">
+            <EntityTypeMapping TypeName="DogAndPeoplesModel.Donos">
+              <MappingFragment StoreEntitySet="Donos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

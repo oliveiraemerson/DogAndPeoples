@@ -1,0 +1,44 @@
+﻿@model DogAndPeoples.Models.Caes_Dono
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Excluir</h2>
+
+<h3>Tem certeza que deseja excluir?</h3>
+<div>
+    <h4>Pessoas X Cães</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Caes.Nome) Cão
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Caes.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Donos.Nome) Pessoa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Donos.Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Excluir" class="btn btn-default" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,34 @@
+﻿@model DogAndPeoples.Models.Caes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Visualização</h2>
+
+<div>
+    <h4>Cães</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raca)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id_cao }) |*@
+    @Html.ActionLink("Voltar para lista", "Index")
+</p>

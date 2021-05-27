@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DogAndPeoples.Models.Caes_Dono>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> Pessoas X Cães</h2>
+
+<p>
+    @Html.ActionLink("Incluir", "Create", null, new { @class = "btn btn-default" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Caes.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Donos.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Caes.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Donos.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id = item.Id })|
+            @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
